@@ -4,6 +4,12 @@ if [ -z "${PREFIX}" ]; then
     echo "\`PREFIX\` was not specified." >&2
     exit 1
 fi
+
+libs="Libs: -L\${libdir} -linesi"
+if [ -n "${AR}" ]; then
+    libs+=$'\n'"Libs.private: -static"
+fi
+
 cat << EOF
 prefix=$PREFIX
 libdir=\${prefix}/lib
@@ -12,7 +18,6 @@ includedir=\${prefix}/include
 Name: inesi
 Description: INES File Parser Library
 Version: 0.0
-Libs: -L\${libdir} -linesi
-Libs.private: -static
+$libs
 Cflags: -I\${includedir}
 EOF

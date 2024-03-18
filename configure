@@ -21,7 +21,9 @@ if [ -z "${AR}" ]; then
         export AR=$(which ar)
     else
         read -p "AR: " ar
-        if ! [ -x "$(command -v ${ar})" ]; then
+        if [ -z "${ar}" ]; then
+            echo "Warning: Archiver was not specified. Static library can't be created without it."
+        elif [ -x "$(command -v ${ar})" ]; then
             echo "Archiver '${ar}' was not found." >&2
             exit 1
         fi
@@ -36,3 +38,13 @@ if [ -z "${prefix}" ]; then read -p "PREFIX: ($PREFIX_DEFAULT) " prefix; fi
 if [ -z "${prefix}" ]; then prefix=$PREFIX_DEFAULT; fi
 export PREFIX=$prefix
 echo PREFIX=$PREFIX
+
+if [ -z "${LD_LIBRARY_PATH}" ]; then
+    export LD_LIBRARY_PATH=$PWD
+elif ! [[ "$LD_LIBRARY_PATH" =~ (^|:)"$PWD"(:|$) ]]; then
+    LD_LIBRARY_PATH="$PWD:$LD_LIBRARY_PATH"
+fi
+echo LD_LIBRARY_PATH=$LD_LIBRARY_PATH
+
+echo Starting new bash session...
+bash
