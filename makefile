@@ -1,8 +1,10 @@
 CC := gcc
 AR := ar
 
-CFLAGS := -std=c99 -pedantic -Wall -fanalyzer
+CFLAGS := -std=c99 -pedantic -Wall -fanalyzer -O3
 LDFLAGS :=
+
+.PHONY: all clean
 
 all: libinesi.a inesi
 
@@ -10,10 +12,10 @@ all: libinesi.a inesi
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 lib%.a: %.o
-	$(AR) -rcs libinesi.a
+	$(AR) -rcs $@ $<
 
 inesi: main.c inesi.o
-	$(CC) -o $@ $(CFLAGS) $(LDFLAGS) $^
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
 
 clean:
 	rm -f $(wildcard *.o) $(wildcard *.a) inesi
