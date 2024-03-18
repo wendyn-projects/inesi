@@ -49,7 +49,7 @@ typedef struct {
     bool mHasAlternativeNametableLayout;
 
     INES_HeaderType mHeaderType;
-    union {
+    union HeaderTypeVariant_t {
         struct INES_HT_INES_ARCHAIC_t {
             uint32_t mMapper;
             int8_t mAuthor[10];
@@ -67,7 +67,7 @@ typedef struct {
             uint32_t mMapper;
             INES_TV_System mTV_System;
             INES_System mSystem;
-            union {
+            union SystemVariant_t {
                 struct INES_S_VS_SYSTEM_t {
                     uint8_t mPPU_Type;
                     uint8_t mHardwareType;
