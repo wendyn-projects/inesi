@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [ -z "${PREFIX}" ]; then
+    echo "\`PREFIX\` was not specified." >&2
+    exit 1
+fi
+cat << EOF
+prefix=$PREFIX
+libdir=\${prefix}/lib
+includedir=\${prefix}/include
+
+Name: inesi
+Description: INES File Parser Library
+Version: 0.0
+Libs: -L\${libdir} -linesi
+Cflags: -I\${includedir}
+EOF

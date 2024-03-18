@@ -1,0 +1,38 @@
+#!/bin/bash
+
+if [ -z "${CC}" ]; then
+    if [ -x "$(command -v gcc)" ]; then
+        export CC=$(which gcc)
+    elif [ -x "$(command -v clang)" ]; then
+        export CC=$(which clang)
+    else
+        read -p "CC: " cc
+        if ! [ -x "$(command -v ${cc})" ]; then
+            echo "C compailer '${cc}' was not found." >&2
+            exit 1
+        fi
+        export CC=$cc
+    fi
+fi
+echo CC=$CC
+
+if [ -z "${AR}" ]; then
+    if [ -x "$(command -v ar)" ]; then
+        export AR=$(which ar)
+    else
+        read -p "AR: " ar
+        if ! [ -x "$(command -v ${ar})" ]; then
+            echo "Archiver '${ar}' was not found." >&2
+            exit 1
+        fi
+        export AR=$ar
+    fi
+fi
+echo AR=$AR
+
+prefix=$PREFIX
+PREFIX_DEFAULT="/usr"
+if [ -z "${prefix}" ]; then read -p "PREFIX: ($PREFIX_DEFAULT) " prefix; fi
+if [ -z "${prefix}" ]; then prefix=$PREFIX_DEFAULT; fi
+export PREFIX=$prefix
+echo PREFIX=$PREFIX
