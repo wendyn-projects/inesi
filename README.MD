@@ -29,5 +29,8 @@ inesi rom.nes
 
     _Alternatively setting `PREFIX` should be enough._
 
+### Windows
+Set `CC` and `AR` and then run `make static`, _which will create just the statically linked binaries._
+
 ## TODOs:
 - [ ] Write tests.
