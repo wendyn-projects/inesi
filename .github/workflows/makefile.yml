@@ -19,3 +19,14 @@ jobs:
     #   with:
     #     files: "./libinesi.so ./libinesi.a ./inesi ./inesi_static"
     #     fail: true
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Make
+        run: make
+    # - name: Check Files Created
+    #   uses: andstor/file-existence-action@v3
+    #   with:
+    #     files: "./libinesi.a ./inesi_static"
+    #     fail: true
