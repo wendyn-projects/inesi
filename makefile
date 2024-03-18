@@ -1,5 +1,6 @@
 CFLAGS := -std=c99 -pedantic -Wall -fanalyzer -O3
 LDFLAGS := -L. -linesi
+LDFLAGS_STATIC :=
 
 LIB_TARGETS := libinesi.so
 ifdef AR
@@ -9,7 +10,7 @@ SCRIPT_CREATE_PC := create_pc
 
 check-var-defined = $(if $(value $1),,$(error `$1` is not defined.))
 
-.PHONY: all install install_dev install_lib install_include install_pc install_bin check_prefix clean
+.PHONY: all install install_dev install_lib install_include install_pc install_bin clean
 
 all: $(LIB_TARGETS) inesi
 
@@ -30,6 +31,9 @@ lib%.a: %.o
 inesi: main.c libinesi.so
 	$(CC) $(CFLAGS) -o $@ $< $(LDFLAGS)
 
+inesi_static: main.c libinesi.a
+	$(CC) $(CFLAGS) -o $@ $< $(LDFLAGS) -static
+
 %.pc: $(SCRIPT_CREATE_PC)
 	bash $< > $@ || ( rm $@ && exit 1 )
 
@@ -46,9 +50,9 @@ install_pc: inesi.pc install_lib install_include
 	mkdir -p $(PREFIX)/lib/pkgconfig
 	cp $< $(PREFIX)/lib/pkgconfig
 
-install_bin: inesi
+install_bin: inesi install_lib
 	$(call check-var-defined,PREFIX)
-	cp $^ $(PREFIX)/bin
+	cp $< $(PREFIX)/bin
 
 clean:
 	rm -f $(wildcard *.o)
