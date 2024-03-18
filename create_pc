@@ -13,5 +13,6 @@ Name: inesi
 Description: INES File Parser Library
 Version: 0.0
 Libs: -L\${libdir} -linesi
+Libs.private: -static
 Cflags: -I\${includedir}
 EOF
