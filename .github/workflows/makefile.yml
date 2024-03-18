@@ -1,0 +1,16 @@
+name: make CI
+on:
+  push:
+    branches: '**'
+  pull_request:
+    branches: '**'
+env:
+  CC: gcc
+  AR: ar
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: make
+      run: make
