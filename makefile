@@ -3,8 +3,10 @@ LDFLAGS := -L. -linesi
 LDFLAGS_STATIC :=
 
 LIB_TARGETS := libinesi.so
+BIN_TARGETS := inesi
 ifdef AR
 	LIB_TARGETS += libinesi.a
+	BIN_TARGETS += inesi_static
 endif
 SCRIPT_CREATE_PC := create_pc
 
@@ -12,7 +14,8 @@ check-var-defined = $(if $(value $1),,$(error `$1` is not defined.))
 
 .PHONY: all install install_dev install_lib install_include install_pc install_bin clean
 
-all: $(LIB_TARGETS) inesi
+all: $(LIB_TARGETS) $(BIN_TARGETS)
+static: libinesi.a inesi_static
 
 install: install_dev install_bin
 

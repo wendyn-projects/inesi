@@ -18,9 +18,9 @@ inesi rom.nes
     ```sh
     make
     ```
-    _By default `inesi` is dynamically linked and requires `libinesi.so` to be searchable via `LD_LIBRARY_PATH`._
+    * `inesi` is dynamically linked _(won't run if `libinesi.so` isn't searchable via `LD_LIBRARY_PATH`)_.
+    * `inesi_static` is self-contained.
 
-    Run `make inesi_static` to make a self-contained executable.
 3. Instalation:
     ```sh
     sudo -E make install
