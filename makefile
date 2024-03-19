@@ -27,12 +27,15 @@ install_dev: install_lib install_include install_pc
 lib%.so: %.o
 	$(CC) $(CFLAGS) -shared -o $@ $<
 
-lib%.a: %.o
-	$(call check-var-defined,AR)
-	$(AR) -rcs $@ $<
-
 inesi: main.c libinesi.so
 	$(CC) $(CFLAGS) -o $@ $< $(LDFLAGS)
+
+%_static.o: %.c
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+lib%.a: %_static.o
+	$(call check-var-defined,AR)
+	$(AR) -rcs $@ $<
 
 inesi_static: main.c libinesi.a
 	$(CC) $(CFLAGS) -o $@ $< $(LDFLAGS) -static
