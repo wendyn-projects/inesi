@@ -1,3 +1,15 @@
+/*
+ *     ___________________________
+ *    /                   /___/  /|
+ *   /                   /===/  / |
+ *  /   _______________ /===/  /  /
+ * /___/______________//___/__/  /
+ * |   | INESI       ||   |   | /
+ * |   |_____________||_ _|   |/
+ * \   o I-I I-I      |L L|   /
+ *  \_________________|___|__/
+ */
+
 #ifndef INESI_H_
 #define INESI_H_
 
@@ -88,6 +100,12 @@ typedef struct {
     } mHeaderTypeVariant;
 } INES_HeaderInfo;
 
+/**
+ * Parses file header in INES format.
+ * @param arHeader Raw Header Data
+ * @param rrInfo Resulting Parsed Header Info
+ * @result Returns `true` if parsed successfully.
+*/
 bool parseHeader(uint8_t const arHeader[static 15], INES_HeaderInfo rrInfo[static 1]);
 
 #endif
