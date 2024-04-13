@@ -22,9 +22,9 @@ int main(int argc, char** argv)
     INES_HeaderInfo lHeader = { 0 };
     assert(parseHeader(lHeaderBytes, &lHeader));
 
-    printf("PRG_ROM_SIZE = ");
+    printf("PRG_ROM_SIZE = \"");
     printMemorySize(lHeader.mPRG_ROM_B);
-    puts("");
+    puts("\"");
 
     printf("CHR_ROM_SIZE = \"");
     printMemorySize(lHeader.mCHR_ROM_B);
